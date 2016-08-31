@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Parrot Wings transfer</title>
+    <base href="/">
+    <!-- Style sheets -->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="Content/site.css" rel="stylesheet" />
+    <!-- Library Scripts -->
+    <script src="Scripts/jquery-3.1.0.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-ui-router.min.js"></script>
+    <script src="Scripts/angular-resource.min.js"></script>
+    <script src="Scripts/angular-messages.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="Scripts/angular-local-storage.min.js"></script>
+    <script src="Scripts/angular-ui/ui-utils.min.js"></script>
+    <!-- Application Script -->
+    <script src="app/app.js"></script>
+    <script src="app/services.js"></script>
+    <script src="app/controllers.js"></script>
+    <script src="app/signin/services.currentUser.js"></script>
+    <script src="app/signin/services.userResource.js"></script>
+    <script src="app/signin/signinCtrl.js"></script>
+    <script src="app/signin/userPanelDirective.js"></script>
+    <script src="app/transaction/services.transactionHub.js"></script>
+    <script src="app/transaction/services.transactionResource.js"></script>
+    <script src="app/transaction/transactionCtrl.js"></script>
+</head>
+
+<body ng-app="pwApp">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a ui-sref="app.public" class="navbar-brand">Parrot Wings</a>
+            </div>
+            <div><user-panel /></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div ui-view></div>
+    </div>
+
+</body>
+
+</html>
