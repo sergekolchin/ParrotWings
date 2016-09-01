@@ -29,27 +29,27 @@ namespace PW.WebAPI.Migrations
             //  This method will be called after migrating to the latest version.
 
             //create users
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
-            userManager.Create(new ApplicationUser
-            {
-                Name = "User1",
-                Email = "user1@test.com",
-                UserName = "user1@test.com"
-            }, "Passw0rd!");
+            //var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            //userManager.Create(new ApplicationUser
+            //{
+            //    Name = "User1",
+            //    Email = "user1@test.com",
+            //    UserName = "user1@test.com"
+            //}, "Passw0rd!");
 
-            userManager.Create(new ApplicationUser
-            {
-                Name = "User2",
-                Email = "user2@test.com",
-                UserName = "user2@test.com"
-            }, "Passw0rd!");
+            //userManager.Create(new ApplicationUser
+            //{
+            //    Name = "User2",
+            //    Email = "user2@test.com",
+            //    UserName = "user2@test.com"
+            //}, "Passw0rd!");
 
-            userManager.Create(new ApplicationUser
-            {
-                Name = "User3",
-                Email = "user3@test.com",
-                UserName = "user3@test.com"
-            }, "Passw0rd!");
+            //userManager.Create(new ApplicationUser
+            //{
+            //    Name = "User3",
+            //    Email = "user3@test.com",
+            //    UserName = "user3@test.com"
+            //}, "Passw0rd!");
 
             //var users = context.Users
             //    .Where(x => (Equals(x.Email, "user1@test.com") || Equals(x.Email, "user2@test.com") || Equals(x.Email, "user3@test.com")))

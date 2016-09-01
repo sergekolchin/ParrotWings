@@ -5,6 +5,7 @@ angular.module('pwApp.controllers')
         function (transactionHub, $scope, $rootScope) {
             var vm = this;
             vm.text = 'asd';
+            vm.transactions = '';
 
             vm.greetAll = function () {
                 transactionHub.sendRequest();
@@ -17,10 +18,18 @@ angular.module('pwApp.controllers')
             transactionHub.initialize();
 
             //Updating greeting message after receiving a message through the event
-            $rootScope.$on("acceptGreet", function (e, message) {
+            $rootScope.$on('acceptGreet', function (e, message) {
                 $scope.$apply(function () {
                     console.log('$rootScope.$on');
                     vm.updateGreetingMessage(message)
+                });
+            });
+
+            //get transactions history on connect
+            $rootScope.$on('onConnected', function (e, transactions) {
+                $scope.$apply(function () {
+                    console.log('onConnected');
+                    vm.transactions = transactions;
                 });
             });
         }]);

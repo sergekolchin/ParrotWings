@@ -23,6 +23,8 @@ namespace PW.WebAPI.Models
         public DateTime CreationDate { get; private set; }
         public int CurrentBalance { get; private set; }
 
+        public UserTransaction() { }
+
         public UserTransaction(ApplicationUser userFrom, ApplicationUser userTo, int amount )
         {
             try
