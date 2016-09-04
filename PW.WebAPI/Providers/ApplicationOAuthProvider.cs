@@ -44,7 +44,7 @@ namespace PW.WebAPI.Providers
                 CookieAuthenticationDefaults.AuthenticationType);
 
             //add Name property to token
-            AuthenticationProperties properties = CreateProperties(user.UserName, user.Name);
+            AuthenticationProperties properties = CreateProperties(user.Id, user.UserName, user.Name);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -86,10 +86,11 @@ namespace PW.WebAPI.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, string name)
+        public static AuthenticationProperties CreateProperties(string userId, string userName, string name)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
+                { "id", userId },
                 { "userName", userName },
                 { "name" , name }
             };

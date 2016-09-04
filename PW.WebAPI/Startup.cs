@@ -16,11 +16,11 @@ namespace PW.WebAPI
     {
         public void Configuration(IAppBuilder app)
         {
-            //use CORS for WebAPI and Token
+            //use CORS for WebAPI, Token and SignalR
             app.UseCors(CorsOptions.AllowAll);
 
-            //!!! Authentication step should be prior to the configuration of SignalR
-            //!!! otherwise NullReferenceException in Hub on Context.User.Identity.Name
+            //Authentication step should be prior to the configuration of SignalR
+            //otherwise NullReferenceException in Hub on Context.User.Identity.Name
             ConfigureAuth(app);
             
             //http://stackoverflow.com/questions/26657296/signalr-authentication-with-webapi-bearer-token

@@ -1,35 +1,43 @@
 ﻿'use strict';
 
 angular.module('pwApp.controllers')
-    .controller('transactionCtrl', ['transactionHub', '$scope', '$rootScope',
-        function (transactionHub, $scope, $rootScope) {
+    .controller('transactionCtrl', ['transactionHub', 'transactionResource', '$scope', '$rootScope', '$filter',
+        function (transactionHub, transactionResource, $scope, $rootScope, $filter) {
             var vm = this;
-            vm.text = 'asd';
-            vm.transactions = '';
+            vm.transactions = [];
+            vm.user = {};
 
             vm.greetAll = function () {
                 transactionHub.sendRequest();
             };
 
-            vm.updateGreetingMessage = function (text) {
-                vm.text = text;
-            };
-
             transactionHub.initialize();
 
-            //Updating greeting message after receiving a message through the event
-            $rootScope.$on('acceptGreet', function (e, message) {
+            $rootScope.$on('onConnected', function (e, user) {
                 $scope.$apply(function () {
-                    console.log('$rootScope.$on');
-                    vm.updateGreetingMessage(message)
+                    //current user info
+                    vm.user = user;
+                    //query all history transactions
+                    transactionResource.query(function (data) {
+                        vm.transactions = data;
+                        for (var i = 0; i < vm.transactions.length; i++) {
+                            //if credit transaction - green color
+                            if (vm.transactions[i].userToId === user.id)
+                                vm.transactions[i].credit = true;
+                        }
+                    });
                 });
             });
 
-            //get transactions history on connect
-            $rootScope.$on('onConnected', function (e, transactions) {
+            $rootScope.$on('transactionAdded', function (e, transaction, user) {
                 $scope.$apply(function () {
-                    console.log('onConnected');
-                    vm.transactions = transactions;
+                    //update user balance
+                    vm.user = user;
+                    //if credit transaction - green color
+                    if (transaction.userToId === user.id)
+                        transaction.credit = true;
+                    //add new transaction
+                    vm.transactions.unshift(transaction);
                 });
             });
         }]);

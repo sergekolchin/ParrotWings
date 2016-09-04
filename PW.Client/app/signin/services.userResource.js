@@ -4,8 +4,8 @@
     angular
         .module('pwApp.services')
         .factory('userResource',
-                ['$resource', 'appSettings',
-                    function ($resource, appSettings) {
+                ['$resource', 'appSettings', 'currentUser',
+                    function ($resource, appSettings, currentUser) {
                         return {
                             registration: $resource(appSettings.serverPath + '/api/Account/Register', null,
                                     {
@@ -15,8 +15,7 @@
                                     {
                                         'loginUser': {
                                             method: 'POST',
-                                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-                                            ,
+                                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                                             transformRequest: function (data, headersGetter) {
                                                 var str = [];
                                                 for (var d in data)
@@ -27,5 +26,18 @@
                                         }
                                     })
                         }
-                    }]);
+                    }])
+    .factory('userResourceToken',
+            ['$resource', 'appSettings', 'currentUser',
+             function ($resource, appSettings, currentUser) {
+                 return $resource(appSettings.serverPath + '/api/Users', null,
+                     {
+                         'query': {
+                             headers: { 'Authorization': 'Bearer ' + currentUser.getProfile().token },
+                             isArray: true
+                         }
+                     });
+             }]);
+
 })();
+

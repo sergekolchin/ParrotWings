@@ -13,6 +13,7 @@
     <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="Scripts/angular.min.js"></script>
     <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/angular-sanitize.min.js"></script>
     <script src="Scripts/angular-ui-router.min.js"></script>
     <script src="Scripts/angular-resource.min.js"></script>
     <script src="Scripts/angular-messages.min.js"></script>
@@ -20,6 +21,7 @@
     <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="Scripts/angular-local-storage.min.js"></script>
     <script src="Scripts/angular-ui/ui-utils.min.js"></script>
+    <script src="Scripts/smart-table.min.js"></script>
     <!-- Application Script -->
     <script src="app/app.js"></script>
     <script src="app/services.js"></script>
@@ -31,15 +33,16 @@
     <script src="app/transaction/services.transactionHub.js"></script>
     <script src="app/transaction/services.transactionResource.js"></script>
     <script src="app/transaction/transactionCtrl.js"></script>
+    <script src="app/transaction/addTransactionCtrl.js"></script>
 </head>
 
 <body ng-app="pwApp">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <div class="navbar-header">
+            <div class="navbar-header col-xs-9">
                 <a ui-sref="app.public" class="navbar-brand">Parrot Wings</a>
             </div>
-            <div><user-panel /></div>
+            <div class="col-xs-3"><user-panel /></div>
         </div>
     </nav>
 

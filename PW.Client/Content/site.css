@@ -1,1 +1,9 @@
-﻿
+﻿.table {
+    border:none !important;
+}
+.table th, .table td {
+    border:none !important;
+}
+.fixed-table-container {
+    border:none !important;
+}

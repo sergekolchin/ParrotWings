@@ -12,12 +12,14 @@
     function (localStorageService) {
         var profile = {
             isLoggedIn: false,
+            id: '',
             name: '',
             email: '',
             token: ''
         };
 
-        var setProfile = function (name, email, token) {
+        var setProfile = function (id, name, email, token) {
+            profile.id = id;
             profile.name = name;
             profile.email = email;
             profile.token = token;
@@ -30,6 +32,7 @@
             if (profile) return profile;
             else return {
                 isLoggedIn: false,
+                id: '',
                 name: '',
                 email: '',
                 token: ''
@@ -40,6 +43,7 @@
         var logout = function () {
             localStorageService.set('currentUser', {
                 isLoggedIn: false,
+                id: '',
                 username: '',
                 email: '',
                 token: '' });

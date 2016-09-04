@@ -31,6 +31,24 @@ namespace PW.WebAPI.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Transactions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Amount = c.Int(nullable: false),
+                        CreationDate = c.DateTime(nullable: false),
+                        UserFromBalance = c.Int(nullable: false),
+                        UserToBalance = c.Int(nullable: false),
+                        UserFrom_Id = c.String(nullable: false, maxLength: 128),
+                        UserTo_Id = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserFrom_Id, cascadeDelete: false)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserTo_Id, cascadeDelete: false)
+                .Index(t => t.UserFrom_Id)
+                .Index(t => t.UserTo_Id);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -77,45 +95,28 @@ namespace PW.WebAPI.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
-            CreateTable(
-                "dbo.UserTransactions",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Amount = c.Int(nullable: false),
-                        CreationDate = c.DateTime(nullable: false),
-                        CurrentBalance = c.Int(nullable: false),
-                        UserFrom_Id = c.String(nullable: false, maxLength: 128),
-                        UserTo_Id = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserFrom_Id, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserTo_Id, cascadeDelete: true)
-                .Index(t => t.UserFrom_Id)
-                .Index(t => t.UserTo_Id);
-            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.UserTransactions", "UserTo_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.UserTransactions", "UserFrom_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Transactions", "UserTo_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Transactions", "UserFrom_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropIndex("dbo.UserTransactions", new[] { "UserTo_Id" });
-            DropIndex("dbo.UserTransactions", new[] { "UserFrom_Id" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
+            DropIndex("dbo.Transactions", new[] { "UserTo_Id" });
+            DropIndex("dbo.Transactions", new[] { "UserFrom_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropTable("dbo.UserTransactions");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Transactions");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
         }

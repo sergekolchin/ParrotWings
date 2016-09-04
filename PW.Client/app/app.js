@@ -1,16 +1,15 @@
 (function () {
     'use strict';
 
-    var app = angular.module('pwApp', ['ui.router', 'ngMessages', 'ngAnimate',
+    var app = angular.module('pwApp', ['ui.router', 'ngMessages', 'ngAnimate', 'ngSanitize',
         'ui.bootstrap', 'ui.bootstrap.tpls', 'pwApp.services', 'pwApp.controllers'
     ]);
     app.value('$', $);
 
     app.config(
-        ['$stateProvider', '$urlRouterProvider', '$locationProvider',
-            function ($stateProvider, $urlRouterProvider, $locationProvider) {
-
-              //  $locationProvider.html5Mode(true).hashPrefix('!');
+        ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider',
+            function ($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
+                //  $locationProvider.html5Mode(true).hashPrefix('!');
                 $urlRouterProvider.otherwise('/');
 
                 $stateProvider
@@ -33,7 +32,7 @@
                             resolve: {},
                             controller: 'signinCtrl as vm'
                         }).result.finally(function () {
-                            //state has not changed
+                            //state has not changed go parent
                             if ($state.$current.name === 'app.public.signin'
                             ) {
                                 $state.go('^');
@@ -46,7 +45,31 @@
                     url: '/transactions',
                     resolve: { authenticate: authenticate },
                     controller: 'transactionCtrl as vm',
-                    templateUrl: 'app/transaction/transaction.html'
+                    templateUrl: 'app/transaction/transactions.html'
+                })
+                .state('app.transactions.add', {
+                    url: '/add',
+                    onEnter: ['$state', '$uibModal', 'transactionResource',
+                        function ($state, $uibModal, transactionResource) {
+                            $uibModal.open({
+                                animation: true,
+                                size: 'sm',
+                                templateUrl: 'app/transaction/addTransactionModal.html',
+                                resolve: {
+                                    newTransaction: function (transactionResource) {
+                                        //create new entity
+                                        return new transactionResource();
+                                    }
+                                },
+                                controller: 'addTransactionCtrl as vm'
+                            }).result.finally(function () {
+                                //state has not changed go parent
+                                if ($state.$current.name === 'app.transactions.add'
+                                ) {
+                                    $state.go('^');
+                                }
+                            });
+                        }]
                 })
 
                 function authenticate($q, currentUser, $state, $timeout) {
@@ -69,7 +92,6 @@
             }]);
 
     app.run(['$state', function ($state) {
-        //console.log('app.public');
         //$state.go('app.public'); //make a transition to 'home' state when app starts
     }]);
 

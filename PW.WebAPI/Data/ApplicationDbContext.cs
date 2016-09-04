@@ -21,10 +21,20 @@ namespace PW.WebAPI.Data
             return new ApplicationDbContext();
         }
 
-        public DbSet<UserTransaction> UserTransactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Transaction>()
+            //    .HasRequired(x => x.UserTo)
+            //    .WithRequiredDependent()
+            //    .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Transaction>()
+            //    .HasRequired(x => x.UserFrom)
+            //    .WithRequiredDependent()
+            //    .WillCascadeOnDelete(false);
+
             base.OnModelCreating(modelBuilder);
         }
     }

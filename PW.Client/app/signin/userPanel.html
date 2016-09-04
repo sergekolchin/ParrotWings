@@ -1,16 +1,16 @@
 ﻿<div class="navbar-form navbar-right">
     <div ng-hide="isLoggedIn()">
-        <a class="btn btn-default btn-sm"
+        <a class="btn btn-success btn-sm"
            ui-sref="app.public.signin">
-            <i class="fa fa-sign-in"></i> Sign In
+            <i class="fa fa-sign-in"></i>&nbsp;Sign In
         </a>
     </div>
     <div ng-show="isLoggedIn()">
-        <span class="badge">Hi, {{ name() }}!</span>
+        <!--<span class="badge">Hi, {{ name() }}!</span>-->
         <button type="submit"
-                class="btn btn-default btn-sm"
+                class="btn btn-danger btn-sm"
                 ng-click="logout()">
-            <i class="fa fa-sign-out"></i> Logout
+            <i class="fa fa-sign-out"></i>&nbsp;Logout
         </button>
     </div>
 </div>

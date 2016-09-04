@@ -1,173 +1,179 @@
 ﻿<uib-tabset style="padding:10px; padding-bottom:0;">
-    <!--/ Login form /-->
-    <uib-tab heading="Login">
-        <form role="form"
-              name="loginForm"
-              novalidate>
-            <div class="modal-body">
-                <div class="form-group"
-                     ng-class="{'has-error':loginForm.email.$invalid}">
-                    <label for="email">Email</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-envelope"></i>
-                        </span>
-                        <input type="email"
-                               class="form-control"
-                               id="email"
-                               name="email"
-                               placeholder="email"
-                               ng-model="vm.loginData.email"
-                               ng-required="true">
+        <!--/ Login form /-->
+        <uib-tab heading="Login">
+            <form role="form"
+                  name="loginForm"
+                  novalidate>
+                <div class="modal-body">
+                    <div class="form-group"
+                         ng-class="{'has-error':loginForm.email.$invalid}">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   placeholder="email"
+                                   ng-model="vm.loginData.email"
+                                   ng-required="true">
+                        </div>
+                        <div ng-messages="loginForm.email.$error" 
+                             class="help-block has-error" role="alert">
+                            <div ng-message="required">Email required</div>
+                            <div ng-message="email">Invalid email format</div>
+                        </div>
                     </div>
-                    <div ng-messages="loginForm.email.$error" role="alert">
-                        <div ng-message="required">Email required</div>
-                        <div ng-message="email">Invalid email format</div>
+                    <div class="form-group"
+                         ng-class="{'has-error':loginForm.password.$invalid}">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-key"></i>
+                            </span>
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   name="password"
+                                   placeholder="password"
+                                   ng-model="vm.loginData.password"
+                                   ng-required="true">
+                        </div>
+                        <div ng-messages="loginForm.password.$error" 
+                             class="help-block has-error" role="alert">
+                            <div ng-message="required">Password required</div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group"
-                     ng-class="{'has-error':loginForm.password.$invalid}">
-                    <label for="password">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-key"></i>
-                        </span>
-                        <input type="password"
-                               class="form-control"
-                               id="password"
-                               name="password"
-                               placeholder="password"
-                               ng-model="vm.loginData.password"
-                               ng-required="true">
-                    </div>
-                    <div ng-messages="loginForm.password.$error" role="alert">
-                        <div ng-message="required">Password required</div>
-                    </div>
-                </div>
-                <div class="form-group alert alert-danger" role="alert"
-                     ng-show="vm.message">
-                    {{vm.message}}
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit"
-                        class="btn btn-primary"
-                        ng-click="vm.login()"
-                        ng-disabled="loginForm.$invalid">
-                    Login
-                </button>
-                <button type="submit"
-                        class="btn btn-warning"
-                        ng-click="vm.cancel()">
-                    Cancel
-                </button>
-            </div>
-        </form>
-    </uib-tab>
-    <!--/ Register form /-->
-    <uib-tab heading="Register">
-        <form role="form"
-              name="registerForm"
-              novalidate>
-            <div class="modal-body">
-                <div class="form-group"
-                     ng-class="{'has-error':registerForm.name.$invalid}">
-                    <label for="email">Name</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-user"></i>
-                        </span>
-                        <input type="text"
-                               class="form-control"
-                               id="name"
-                               name="name"
-                               placeholder="User name"
-                               ng-model="vm.regData.name"
-                               ng-required="true">
-                    </div>
-                    <div ng-messages="registerForm.name.$error" role="alert">
-                        <div ng-message="required">Name required</div>
+                    <div class="form-group alert alert-danger" role="alert"
+                         ng-show="vm.message">
+                        {{vm.message}}
                     </div>
                 </div>
-                <div class="form-group"
-                     ng-class="{'has-error':registerForm.email.$invalid}">
-                    <label for="email">Email</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-envelope"></i>
-                        </span>
-                        <input type="email"
-                               class="form-control"
-                               id="email"
-                               name="email"
-                               placeholder="Email"
-                               ng-model="vm.regData.email"
-                               ng-required="true">
+                <div class="modal-footer">
+                    <button type="submit"
+                            class="btn btn-primary"
+                            ng-click="vm.login()"
+                            ng-disabled="loginForm.$invalid">
+                        Login
+                    </button>
+                    <button type="submit"
+                            class="btn btn-warning"
+                            ng-click="vm.cancel()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </uib-tab>
+        <!--/ Register form /-->
+        <uib-tab heading="Register">
+            <form role="form"
+                  name="registerForm"
+                  novalidate>
+                <div class="modal-body">
+                    <div class="form-group"
+                         ng-class="{'has-error':registerForm.name.$invalid}">
+                        <label for="email">Name</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </span>
+                            <input type="text"
+                                   class="form-control"
+                                   id="name"
+                                   name="name"
+                                   placeholder="User name"
+                                   ng-model="vm.regData.name"
+                                   ng-required="true">
+                        </div>
+                        <div ng-messages="registerForm.name.$error" 
+                             class="help-block has-error" role="alert">
+                            <div ng-message="required">Name required</div>
+                        </div>
                     </div>
-                    <div ng-messages="registerForm.email.$error" role="alert">
-                        <div ng-message="required">Email required</div>
-                        <div ng-message="email">Invalid email</div>
+                    <div class="form-group"
+                         ng-class="{'has-error':registerForm.email.$invalid}">
+                        <label for="email">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                            <input type="email"
+                                   class="form-control"
+                                   id="email"
+                                   name="email"
+                                   placeholder="Email"
+                                   ng-model="vm.regData.email"
+                                   ng-required="true">
+                        </div>
+                        <div ng-messages="registerForm.email.$error" 
+                             class="help-block has-error" role="alert">
+                            <div ng-message="required">Email required</div>
+                            <div ng-message="email">Invalid email</div>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{'has-error':registerForm.password.$invalid}">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-key"></i>
+                            </span>
+                            <input type="password"
+                                   class="form-control"
+                                   id="password"
+                                   name="password"
+                                   placeholder="Password"
+                                   ng-model="vm.regData.password"
+                                   ng-minlength="6"
+                                   ng-required="true">
+                        </div>
+                        <div ng-messages="registerForm.password.$error" 
+                             class="help-block has-error" role="alert">
+                            <div ng-message="required">Password required</div>
+                            <div ng-message="minlength">The Password must be at least 6 characters long.</div>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{'has-error':registerForm.confirmPassword.$invalid}">
+                        <label for="confirmPassword">Confirm password</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-key"></i>
+                            </span>
+                            <input type="password"
+                                   class="form-control"
+                                   id="confirmPassword"
+                                   name="confirmPassword"
+                                   placeholder="Confirm password"
+                                   ng-model="confirmPassword"
+                                   ui-validate="'$value==vm.regData.password'"
+                                   ui-validate-match="'vm.regData.password'">
+                        </div>
+                        <div ng-messages="registerForm.confirmPassword.$error"
+                             class="help-block has-error" role="alert">
+                            <div ng-message="validator">Passwords must match</div>
+                        </div>
+                    </div>
+                    <div class="form-group alert alert-danger" role="alert"
+                         ng-show="vm.messageReg">
+                        <p>{{vm.messageReg}}</p>
                     </div>
                 </div>
-                <div class="form-group"
-                     ng-class="{'has-error':registerForm.password.$invalid}">
-                    <label for="password">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-key"></i>
-                        </span>
-                        <input type="password"
-                               class="form-control"
-                               id="password"
-                               name="password"
-                               placeholder="Password"
-                               ng-model="vm.regData.password"
-                               ng-minlength="6"
-                               ng-required="true">
-                    </div>
-                    <div ng-messages="registerForm.password.$error" role="alert">
-                        <div ng-message="required">Password required</div>
-                        <div ng-message="minlength">The Password must be at least 6 characters long.</div>
-                    </div>
+                <div class="modal-footer">
+                    <button type="submit"
+                            class="btn btn-primary"
+                            ng-click="vm.register()"
+                            ng-disabled="registerForm.$invalid">
+                        Register
+                    </button>
+                    <button type="submit"
+                            class="btn btn-warning"
+                            ng-click="vm.cancel()">
+                        Cancel
+                    </button>
                 </div>
-                <div class="form-group"
-                     ng-class="{'has-error':registerForm.confirmPassword.$invalid}">
-                    <label for="confirmPassword">Confirm password</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-key"></i>
-                        </span>
-                        <input type="password"
-                               class="form-control"
-                               id="confirmPassword"
-                               name="confirmPassword"
-                               placeholder="Confirm password"
-                               ng-model="confirmPassword"
-                               ui-validate="'$value==vm.regData.password'"
-                               ui-validate-match="'vm.regData.password'">
-                    </div>
-                    <div ng-messages="registerForm.confirmPassword.$error" role="alert">
-                        <div ng-message="validator">Passwords must match</div>
-                    </div>
-                </div>
-                <div class="form-group alert alert-danger" role="alert"
-                     ng-show="vm.messageReg">
-                    <p>{{vm.messageReg}}</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit"
-                        class="btn btn-primary"
-                        ng-click="vm.register()"
-                        ng-disabled="registerForm.$invalid">
-                    Register
-                </button>
-                <button type="submit"
-                        class="btn btn-warning"
-                        ng-click="vm.cancel()">
-                    Cancel
-                </button>
-            </div>
-        </form>
-    </uib-tab>
+            </form>
+        </uib-tab>
 </uib-tabset>

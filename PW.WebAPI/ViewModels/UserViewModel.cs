@@ -7,8 +7,8 @@ namespace PW.WebAPI.ViewModels
 {
     public class UserViewModel
     {
-        public string UserId { get; set; }
-
-        public string Name { get; set; }
+        public string Id;
+        public string Name;
+        public int Balance;
     }
 }

@@ -13,7 +13,7 @@ namespace PW.WebAPI.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201608301035485_Init"; }
+            get { return "201609040745189_Init"; }
         }
         
         string IMigrationMetadata.Source

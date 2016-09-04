@@ -12,7 +12,7 @@
                 vm.message = '';
                 vm.messageReg = '';
                 vm.loginData = {
-                    email: 'user1@test.com',
+                    email: 'user3@test.com',
                     password: 'Passw0rd!'
                 };
                 vm.regData = {
@@ -30,9 +30,9 @@
                         function (data) { //success
                             vm.message = '';
                             vm.loginData.password = '';
-                            currentUser.setProfile(data.name, data.email, data.access_token);
+                            currentUser.setProfile(data.id, data.name, data.email, data.access_token, data.balance);
                             $uibModalInstance.close();
-                            $timeout(function () { 
+                            $timeout(function () {
                                 $state.go('app.transactions');
                             });
                         },
@@ -54,11 +54,9 @@
                         function (data) { //success
                             vm.confirmPassword = '';
                             $uibModalInstance.close();
-                            currentUser.setProfile(data.name, data.email, data.token);
-                            $timeout(function () {
-                                $state.go('app.transactions');
-                            });
-
+                            vm.loginData.email = vm.regData.email;
+                            vm.loginData.password = vm.regData.password;
+                            vm.login();
                         },
                         function (response) { //error
                             currentUser.logout();
@@ -77,7 +75,6 @@
 
                 vm.cancel = function () {
                     $uibModalInstance.close();
-                    //$uibModalInstance.dismiss('cancel');
                 }
             }]);
 })();
