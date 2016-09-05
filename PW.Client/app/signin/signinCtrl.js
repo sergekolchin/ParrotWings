@@ -12,13 +12,13 @@
                 vm.message = '';
                 vm.messageReg = '';
                 vm.loginData = {
-                    email: 'user3@test.com',
-                    password: 'Passw0rd!'
+                    email: '',
+                    password: ''
                 };
                 vm.regData = {
-                    name: 'User4',
-                    email: 'user4@test.com',
-                    password: 'Passw0rd!',
+                    name: '',
+                    email: '',
+                    password: '',
                     confirmPassword: ''
                 };
 
