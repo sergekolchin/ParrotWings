@@ -44,7 +44,7 @@ namespace PW.WebAPI.Controllers
             return ctx.Transactions
                     .Where(x => (x.UserFrom.Id.Equals(userId) || x.UserTo.Id.Equals(userId)))
                     .Include(x => x.UserFrom).Include(x => x.UserTo)
-                    //.OrderByDescending(x => x.CreationDate).ThenByDescending(x => x.Id)
+                    .OrderByDescending(x => x.CreationDate).ThenByDescending(x => x.Id)
                     .Select(s => new TransactionViewModel {
                         Id = s.Id,
                         UserFromId = s.UserFrom.Id,
@@ -69,7 +69,7 @@ namespace PW.WebAPI.Controllers
             return ctx.Transactions
                     .Where(x => x.UserFrom.Id.Equals(userId))
                     .Include(x => x.UserFrom).Include(x => x.UserTo)
-                    //.OrderByDescending(x => x.CreationDate).ThenByDescending(x => x.Id)
+                    .OrderByDescending(x => x.CreationDate).ThenByDescending(x => x.Id)
                     .Select(s => new TransactionViewModel
                     {
                         Id = s.Id,
