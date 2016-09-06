@@ -43,7 +43,7 @@
                     <td>{{ trn.userFromName }}</td>
                     <td>{{ trn.userToName }}</td>
                     <td class="text-right">{{ trn.amount | currency:"PW" }}</td>
-                    <td class="text-center">{{ trn.creationDate | date:'dd.MM.yyyy HH:mm:ss'  }}</td>
+                    <td class="text-center">{{ trn.creationDate | utcToLocal:'dd.MM.yyyy HH:mm:ss'  }}</td>
                     <td ng-if="trn.credit" class="text-right">{{ trn.userToBalance | currency:"PW" }}</td>
                     <td ng-if="!trn.credit" class="text-right">{{ trn.userFromBalance | currency:"PW" }}</td>
                 </tr>
