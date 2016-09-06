@@ -49,16 +49,14 @@ namespace PW.WebAPI.Controllers
 
         //api/Transactions/ByUser
         //Get all transactions made by the current user (From)
-        [Route("ByUser")]
-        public IQueryable<TransactionViewModel> GetTransactionsByUser()
+        [Route("ByUser/{id}")]
+        public IQueryable<SelectableTransactionViewModel> GetTransactionsByUser(string id)
         {
-            //get current user id
-            var userId = User.Identity.GetUserId();
             return ctx.Transactions
-                    .Where(x => x.UserFrom.Id.Equals(userId))
+                    .Where(x => x.UserFrom.Id.Equals(id))
                     .Include(x => x.UserFrom).Include(x => x.UserTo)
                     .OrderByDescending(x => x.CreationDate).ThenByDescending(x => x.Id)
-                    .ProjectTo<TransactionViewModel>(mapper.ConfigurationProvider);
+                    .ProjectTo<SelectableTransactionViewModel>(mapper.ConfigurationProvider);
         }
 
         // GET: api/Transactions/5

@@ -28,7 +28,7 @@
     .factory('transactionByUserResource',
                 ['$resource', 'appSettings', 'currentUser',
                  function ($resource, appSettings, currentUser) {
-                     return $resource(appSettings.serverPath + '/api/Transactions/ByUser', null,
+                     return $resource(appSettings.serverPath + '/api/Transactions/ByUser/:id', null,
                          {
                              'query': {
                                  headers: { 'Authorization': 'Bearer ' + currentUser.getProfile().token },

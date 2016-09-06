@@ -16,8 +16,11 @@ namespace PW.WebAPI.Infrastructure
             return new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ApplicationUser, UserViewModel>();
+
                 cfg.CreateMap<Transaction, TransactionViewModel>()
-                .ForMember(x => x.Credit, opt => opt.Ignore());
+                .ForMember(d => d.Credit, opt => opt.Ignore());
+
+                cfg.CreateMap<Transaction, SelectableTransactionViewModel>();
             });
         }
     }

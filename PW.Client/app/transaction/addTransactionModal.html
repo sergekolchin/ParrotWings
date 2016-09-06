@@ -32,7 +32,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form-group"
              ng-class="{'has-error':vm.addTrnForm.amount.$invalid}">
             <label for="amount">Amount</label>
@@ -59,6 +58,17 @@
         <div class="form-group alert alert-danger" role="alert"
              ng-show="vm.message">
             {{vm.message}}
+        </div>
+        <div class="form-group">
+            <label for="userTransactions">Get values from transaction</label>
+            <ui-select ng-model="vm.selectedTransaction" theme="bootstrap">
+                <ui-select-match>{{$select.selected.detail}}</ui-select-match>
+                <ui-select-choices repeat="trn in vm.userTransactions | filter: $select.search track by trn.id">
+                        <!--<div ng-bind="(trn.userToName | highlight: $select.search) + ' ' + trn.amount"></div>-->
+                        <div ng-bind-html="trn.detail | highlight: $select.search"></div>
+                        <!--<div ng-bind-html="trn.amount | highlight: $select.search"></div>-->
+                </ui-select-choices>
+            </ui-select>
         </div>
     </div>
     <div class="modal-footer">

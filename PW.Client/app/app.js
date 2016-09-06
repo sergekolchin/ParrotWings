@@ -2,10 +2,9 @@
     'use strict';
 
     var app = angular.module('pwApp', ['ui.router', 'ngMessages', 'ngAnimate', 'ngSanitize',
-        'ui.bootstrap', 'ui.bootstrap.tpls', 'pwApp.services', 'pwApp.controllers'
+        'ui.select', 'ui.bootstrap', 'ui.bootstrap.tpls', 'pwApp.services', 'pwApp.controllers'
     ]);
     app.value('$', $);
-
     app.config(
         ['$httpProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider',
             function ($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
