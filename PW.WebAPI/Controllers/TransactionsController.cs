@@ -16,6 +16,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PW.WebAPI.ViewModels;
 using System.Web.Http.Cors;
+using PW.WebAPI.Infrastructure;
 
 namespace PW.WebAPI.Controllers
 {
@@ -24,39 +25,26 @@ namespace PW.WebAPI.Controllers
     public class TransactionsController : ApiController
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
-        //private MapperConfiguration config;
-
-        public TransactionsController()
+        private IMapper _mapper = null;
+        protected IMapper mapper
         {
-            //config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<Transaction, TransactionViewModel>()
-            //    .ForMember(x => x.Credit, opt => opt.Ignore());
-            //});
+            get
+            {
+                if (_mapper == null) _mapper = WebApiApplication.mapperConfiguration.CreateMapper();
+                return _mapper;
+            }
         }
 
         // GET: api/Transactions
         // Get all transactions that relate to the current user (From, To)
-        public IQueryable<TransactionViewModel> GetTransactions()
+        public IQueryable<TransactionViewModel> GetTransactions(string id)
         {
-            //get current user id
-            var userId = User.Identity.GetUserId();
+            //var userId = User.Identity.GetUserId() //error - return old userId
             return ctx.Transactions
-                    .Where(x => (x.UserFrom.Id.Equals(userId) || x.UserTo.Id.Equals(userId)))
+                    .Where(x => (x.UserFrom.Id.Equals(id) || x.UserTo.Id.Equals(id)))
                     .Include(x => x.UserFrom).Include(x => x.UserTo)
                     .OrderByDescending(x => x.CreationDate).ThenByDescending(x => x.Id)
-                    .Select(s => new TransactionViewModel {
-                        Id = s.Id,
-                        UserFromId = s.UserFrom.Id,
-                        UserFromName = s.UserFrom.Name,
-                        UserFromBalance = s.UserFromBalance,
-                        UserToId = s.UserTo.Id,
-                        UserToName = s.UserTo.Name,
-                        UserToBalance = s.UserToBalance,
-                        Amount = s.Amount,
-                        CreationDate = s.CreationDate
-                    });
-                    //.ProjectTo<TransactionViewModel>(config);
+                    .ProjectTo<TransactionViewModel>(mapper.ConfigurationProvider);
         }
 
         //api/Transactions/ByUser
@@ -70,33 +58,21 @@ namespace PW.WebAPI.Controllers
                     .Where(x => x.UserFrom.Id.Equals(userId))
                     .Include(x => x.UserFrom).Include(x => x.UserTo)
                     .OrderByDescending(x => x.CreationDate).ThenByDescending(x => x.Id)
-                    .Select(s => new TransactionViewModel
-                    {
-                        Id = s.Id,
-                        UserFromId = s.UserFrom.Id,
-                        UserFromName = s.UserFrom.Name,
-                        UserFromBalance = s.UserFromBalance,
-                        UserToId = s.UserTo.Id,
-                        UserToName = s.UserTo.Name,
-                        UserToBalance = s.UserToBalance,
-                        Amount = s.Amount,
-                        CreationDate = s.CreationDate
-                    });
-            //.ProjectTo<TransactionViewModel>(config);
+                    .ProjectTo<TransactionViewModel>(mapper.ConfigurationProvider);
         }
 
         // GET: api/Transactions/5
-        [ResponseType(typeof(Transaction))]
-        public async Task<IHttpActionResult> GetTransaction(int id)
-        {
-            Transaction transaction = await ctx.Transactions.FindAsync(id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Transaction))]
+        //public async Task<IHttpActionResult> GetTransaction(int id)
+        //{
+        //    Transaction transaction = await ctx.Transactions.FindAsync(id);
+        //    if (transaction == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(transaction);
-        }
+        //    return Ok(transaction);
+        //}
 
         // PUT: api/Transactions/5
         [ResponseType(typeof(void))]
@@ -160,10 +136,7 @@ namespace PW.WebAPI.Controllers
                 ctx.Transactions.Add(dbTransaction);
                 await ctx.SaveChangesAsync();
 
-                //transaction = Mapper.Map<TransactionViewModel>(dbTransaction);
-                transaction.CreationDate = dbTransaction.CreationDate;
-                transaction.UserFromBalance = dbTransaction.UserFromBalance;
-                transaction.UserToBalance = dbTransaction.UserToBalance;
+                transaction = mapper.Map<TransactionViewModel>(dbTransaction);
 
                 return Ok(transaction);
             }

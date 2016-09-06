@@ -11,16 +11,14 @@ namespace PW.WebAPI.Infrastructure
 {
     public static class AutoMapperConfig
     {
-        public static void Configure()
+        public static MapperConfiguration Configure()
         {
-            var config = new MapperConfiguration(cfg =>
+            return new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ApplicationUser, UserViewModel>();
                 cfg.CreateMap<Transaction, TransactionViewModel>()
                 .ForMember(x => x.Credit, opt => opt.Ignore());
             });
-            config.AssertConfigurationIsValid();
-
         }
     }
 }

@@ -9,7 +9,7 @@
                    ui-sref="app.transactions.add">New transaction</a>
             </div>
             <div class="col-md-4 col-sm-4 text-center">
-                <h3>{{ vm.user.name }}</h3>
+                <h3>{{ vm.user.name }} {{ vm.user.id }}</h3>
             </div>
             <div class="col-md-4 col-sm-4 text-right text-nowrap">
                 <h3>
@@ -28,17 +28,18 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th st-sort="userFromName">User From</th>
-                    <th st-sort="userToName">User To</th>
-                    <th st-sort="amount" class="text-right">Amount</th>
-                    <th st-sort="creationDate" class="text-center">Creation Date</th>
-                    <th ng-if="trn.credit" st-sort="userToBalance" class="text-right">Current Balance</th>
-                    <th ng-if="!trn.credit" st-sort="userFromBalance" class="text-right">Current Balance</th>
+                    <th>Id</th>
+                    <th>User From</th>
+                    <th>User To</th>
+                    <th class="text-right">Amount</th>
+                    <th class="text-center">Creation Date</th>
+                    <th class="text-right">Current Balance</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="trn in vm.transactions"
                     ng-class="trn.credit ? 'success' : 'danger'">
+                    <td>{{ trn.id }}</td>
                     <td>{{ trn.userFromName }}</td>
                     <td>{{ trn.userToName }}</td>
                     <td class="text-right">{{ trn.amount | currency:"PW" }}</td>

@@ -14,6 +14,8 @@ namespace PW.WebAPI
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+        internal static MapperConfiguration mapperConfiguration { get; private set; }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -22,7 +24,8 @@ namespace PW.WebAPI
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            AutoMapperConfig.Configure();
+            //configure mapping
+            mapperConfiguration = AutoMapperConfig.Configure();
 
             //camelCase JSON formatter
             var jsonFormatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;

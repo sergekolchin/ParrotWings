@@ -16,6 +16,15 @@ namespace PW.WebAPI.Controllers
     public class UsersController : ApiController
     {
         private ApplicationDbContext ctx = new ApplicationDbContext();
+        private IMapper _mapper = null;
+        protected IMapper mapper
+        {
+            get
+            {
+                if (_mapper == null) _mapper = WebApiApplication.mapperConfiguration.CreateMapper();
+                return _mapper;
+            }
+        }
 
         // GET: api/Users
         // Get all users exclude the current
@@ -26,12 +35,12 @@ namespace PW.WebAPI.Controllers
             var userId = User.Identity.GetUserId();
             return ctx.Users.Where(x => x.Id != userId)
                 .OrderBy(x => x.Name)
-                .Select(s => new UserViewModel {
-                    Id = s.Id,
-                    Name = s.Name,
-                    Balance = s.Balance
-                });
-                //.ProjectTo<UserViewModel>(config);
+                //.Select(s => new UserViewModel {
+                //    Id = s.Id,
+                //    Name = s.Name,
+                //    Balance = s.Balance
+                //});
+                .ProjectTo<UserViewModel>(mapper.ConfigurationProvider);
         }
 
         // GET: api/Users/5
@@ -41,12 +50,14 @@ namespace PW.WebAPI.Controllers
             //get the current user id
             var userId = User.Identity.GetUserId();
             var user = ctx.Users.Where(x => x.Id == userId)
-                    .Select(s => new UserViewModel
-                    {
-                        Id = s.Id,
-                        Name = s.Name,
-                        Balance = s.Balance
-                    }).FirstOrDefault();
+                //.Select(s => new UserViewModel
+                //{
+                //    Id = s.Id,
+                //    Name = s.Name,
+                //    Balance = s.Balance
+                //})
+                .ProjectTo<UserViewModel>(mapper.ConfigurationProvider)
+                .FirstOrDefault();
 
             if (user == null)
             {

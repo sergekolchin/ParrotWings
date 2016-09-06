@@ -18,7 +18,7 @@ angular.module('pwApp.controllers')
                     //current user info
                     vm.user = user;
                     //query all history transactions
-                    transactionResource.query(function (data) {
+                    transactionResource.query({ id: user.id }, function (data) {
                         vm.transactions = data;
                         for (var i = 0; i < vm.transactions.length; i++) {
                             //if credit transaction - green color
@@ -36,8 +36,22 @@ angular.module('pwApp.controllers')
                     //if credit transaction - green color
                     if (transaction.userToId === user.id)
                         transaction.credit = true;
-                    //add new transaction
-                    vm.transactions.unshift(transaction);
+                    //check duplicate transaction
+                    if (!containsObject(transaction, vm.transactions)) {
+                        //add new transaction
+                        vm.transactions.unshift(transaction);
+                    }
                 });
             });
+
+            function containsObject(obj, list) {
+                var i;
+                for (i = 0; i < list.length; i++) {
+                    if (list[i] === obj) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
         }]);
