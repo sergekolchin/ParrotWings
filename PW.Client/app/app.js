@@ -1,8 +1,8 @@
 (function () {
     'use strict';
 
-    var app = angular.module('pwApp', ['ui.router', 'ngMessages', 'ngAnimate', 'ngSanitize',
-        'ui.select', 'ui.bootstrap', 'ui.bootstrap.tpls', 'pwApp.services', 'pwApp.controllers'
+    var app = angular.module('pwApp', ['ui.router', 'ngTouch', 'ngMessages', 'ngAnimate', 'ngSanitize',
+        'ui.select', 'ui.bootstrap', 'ui.bootstrap.tpls', 'smart-table', 'pwApp.services', 'pwApp.controllers'
     ]);
     app.value('$', $);
     app.config(

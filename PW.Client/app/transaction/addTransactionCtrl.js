@@ -12,10 +12,7 @@
                 vm.users = null;
                 vm.message = '';
                 vm.newTransaction = newTransaction;
-                vm.userTo = {
-                    id: '',
-                    name: ''
-                };
+                vm.userTo = null;
 
                 //previous user transactions list
                 transactionByUserResource.query({ id: currentUser.getProfile().id },
@@ -23,6 +20,7 @@
                         vm.userTransactions = data;
                     });
 
+                //create new transaction when user select existing transaction
                 $scope.$watch('vm.selectedTransaction', function () {
                     if (vm.selectedTransaction) {
                         vm.userTo = {

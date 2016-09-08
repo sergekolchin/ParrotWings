@@ -21,23 +21,26 @@
             </div>
         </div>
     </div>
-    <div ng-if="vm.transactions.length == 0">
+    <div ng-if="transactions.length == 0">
         <h3 class="text-center">No transactions found</h3>
     </div>
-    <div ng-if="vm.transactions.length != 0">
-        <table class="table table-hover">
+    <div ng-if="transactions.length != 0">
+        <table st-table="displayedTrn" st-safe-src="transactions" class="table table-hover">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>User From</th>
-                    <th>User To</th>
-                    <th class="text-right">Amount</th>
-                    <th class="text-center">Creation Date</th>
+                    <th st-sort="id" class="cursor">Id</th>
+                    <th st-sort="userFromName" class="cursor">User From</th>
+                    <th st-sort="userToName" class="cursor">User To</th>
+                    <th st-sort="amount" class="text-right cursor">Amount</th>
+                    <th st-sort="creationDate" class="text-center cursor">Creation Date</th>
                     <th class="text-right">Current Balance</th>
+                </tr>
+                <tr>
+                    <th colspan="6"><input st-search="" class="form-control" placeholder="Global search ..." type="text" /></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="trn in vm.transactions"
+                <tr ng-repeat="trn in displayedTrn"
                     ng-class="trn.credit ? 'success' : 'danger'">
                     <td>{{ trn.id }}</td>
                     <td>{{ trn.userFromName }}</td>

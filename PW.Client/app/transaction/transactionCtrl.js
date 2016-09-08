@@ -4,13 +4,9 @@ angular.module('pwApp.controllers')
     .controller('transactionCtrl', ['transactionHub', 'transactionResource', '$scope', '$rootScope', '$filter',
         function (transactionHub, transactionResource, $scope, $rootScope, $filter) {
             var vm = this;
-            vm.transactions = [];
+            $scope.transactions = [];
             vm.user = {};
-
-            vm.greetAll = function () {
-                transactionHub.sendRequest();
-            };
-
+   
             transactionHub.initialize();
 
             $rootScope.$on('onConnected', function (e, user) {
@@ -19,11 +15,11 @@ angular.module('pwApp.controllers')
                     vm.user = user;
                     //query all history transactions
                     transactionResource.query({ id: user.id }, function (data) {
-                        vm.transactions = data;
-                        for (var i = 0; i < vm.transactions.length; i++) {
+                        $scope.transactions = data;
+                        for (var i = 0; i < $scope.transactions.length; i++) {
                             //if credit transaction - green color
-                            if (vm.transactions[i].userToId === user.id)
-                                vm.transactions[i].credit = true;
+                            if ($scope.transactions[i].userToId === user.id)
+                                $scope.transactions[i].credit = true;
                         }
                     });
                 });
@@ -37,9 +33,10 @@ angular.module('pwApp.controllers')
                     if (transaction.userToId === user.id)
                         transaction.credit = true;
                     //check duplicate transaction
-                    if (!containsObject(transaction, vm.transactions)) {
+                    if (!containsObject(transaction, $scope.transactions)) {
                         //add new transaction
-                        vm.transactions.unshift(transaction);
+                        $scope.transactions.unshift(transaction);
+                        //$scope.transactions.push(transaction);
                     }
                 });
             });
